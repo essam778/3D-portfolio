@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://essamhisham.netlify.app/sitemap.xml

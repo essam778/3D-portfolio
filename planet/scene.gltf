@@ -267,10 +267,10 @@
   "extensionsUsed": ["KHR_materials_unlit"],
   "images": [
     {
-      "uri": "https://ik.imagekit.io/bqzlidc77g/my%20portfolio/models/Clouds_baseColor.png?updatedAt=1750563032946&tr=f-auto"
+      "uri": "textures/Clouds_baseColor.png"
     },
     {
-      "uri": "https://ik.imagekit.io/bqzlidc77g/my%20portfolio/models/Planet_baseColor.png?updatedAt=1750563033011&tr=f-auto"
+      "uri": "textures/Planet_baseColor.png"
     }
   ],
   "materials": [
