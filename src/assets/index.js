@@ -1,7 +1,7 @@
 // Import company logos
-import mathwork from "./company/mathwork.png";
-import edunet from "./company/edunet.png";
-import eduskill from "./company/eduskill.png";
+import mathwork from "./company/mathwork.svg";
+import edunet from "./company/edunet.svg";
+import eduskill from "./company/eduskill.svg";
 
 // Import tech stack images
 import web_development from "./tech-stack/web_development.png";

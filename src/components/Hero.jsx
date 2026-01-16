@@ -41,12 +41,21 @@ const TypewriterText = ({ words, speed = 100, delay = 1500 }) => {
 
 const Hero = () => {
   const [showCanvas, setShowCanvas] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCanvas(true);
     }, 1000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -67,7 +76,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {showCanvas && (
+      {showCanvas && isLargeScreen && (
         <React.Suspense fallback={null}>
           <ComputersCanvas />
         </React.Suspense>
