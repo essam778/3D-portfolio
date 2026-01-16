@@ -21,7 +21,13 @@ const Tech = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const visibleTechs = isMobile ? technologies.slice(0, 5) : technologies;
+  const getVisibleTechs = () => {
+    if (window.innerWidth <= 640) return technologies.slice(0, 4);
+    if (window.innerWidth <= 1024) return technologies.slice(0, 6);
+    return technologies;
+  };
+
+  const visibleTechs = isMobile ? getVisibleTechs() : technologies;
 
   return (
     <>
@@ -54,13 +60,14 @@ const Tech = () => {
           </motion.div>
         ))}
 
-        {isMobile && (
-          <div
+        {visibleTechs.length < technologies.length && (
+          <motion.div
+            whileHover={{ scale: 1.1 }}
             onClick={() => navigate("/all-technologies")}
             className="sm:w-36 w-28 h-28 sm:h-36 rounded-full border border-dashed border-[#915eff] flex items-center justify-center cursor-pointer hover:bg-[#915eff]/10 text-[#915eff] text-sm font-medium transition"
           >
             + More
-          </div>
+          </motion.div>
         )}
       </div>
     </>
