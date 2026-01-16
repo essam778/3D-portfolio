@@ -14,84 +14,91 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (toggle) {
-      setActive('');
-    }
+    const handleScroll = () => {
+      if (toggle) setToggle(false);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [toggle]);
 
-  const renderNavLinks = (isSecondary) => (
-    <ul className={`list-none ${isSecondary ? 'flex sm:hidden' : 'hidden sm:flex'} flex-row gap-6`}>
-      {navLinks.map((link) => (
-        <li
-          key={link.id}
-          className={`${
-            active === link.title ? 'text-white' : isSecondary ? 'text-secondary' : 'text-white'
-          } hover:text-white text-[20px] font-medium cursor-pointer`}
-          onClick={() => {
-            setActive(link.title);
-            if (isSecondary) {
-              setToggle(false);
-            }
-          }}
-        >
-          <a href={`#${link.id}`}>{link.title}</a>
-        </li>
-      ))}
-      <li
-        className={`text-${
-          isSecondary ? 'secondary' : 'white'
-        } hover:text-white text-[20px] font-medium cursor-pointer`}
-      >
-        <button onClick={toggleResume}>Resume</button>
-      </li>
-    </ul>
-  );
+  const handleLinkClick = (title) => {
+    setActive(title);
+    setToggle(false);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
       <nav
-        className={`${styles.paddingX} w-full flex items-center py-3 fixed top-0 z-20 bg-primary`}
+        className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 bg-primary`}
       >
         <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
+          {/* Logo/Name */}
           <Link
             to="/"
-            className="flex items-center gap-2"
+            className="text-white text-[18px] sm:text-[20px] font-bold cursor-pointer"
             onClick={() => {
               setActive('');
               window.scrollTo(0, 0);
             }}
           >
-            <p className="text-white text-[20px] font-bold cursor-pointer flex">
-              ESSAM&nbsp;
-              <span className="sm:block hidden">HISHAM</span>
-            </p>
+            ESSAM<span className="hidden sm:inline">&nbsp;HISHAM</span>
           </Link>
-          {renderNavLinks(false)}
-          <div className="sm:hidden flex flex-1 justify-end items-center">
-            <img
-              src={toggle ? close : menu}
-              alt="menu"
-              className="w-[28px] h-[18px] object-contain cursor-pointer"
+
+          {/* Menu Button */}
+          <div className="flex items-center gap-8">
+            <button
               onClick={() => setToggle(!toggle)}
-            />
-            {toggle && (
-              <div
-                className="fixed inset-0 top-14 left-0 right-0 bottom-0 bg-black/50 z-10"
-                onClick={() => setToggle(false)}
-              />
-            )}
-            <div
-              className={`fixed top-14 left-0 h-screen w-64 black-gradient z-20 transform transition-transform duration-300 ease-in-out ${
-                toggle ? 'translate-x-0' : '-translate-x-full'
-              }`}
+              className="flex flex-col gap-1.5 cursor-pointer hover:opacity-80 transition-opacity"
+              aria-label="Toggle menu"
             >
-              <div className="p-6 flex flex-col gap-6">
-                {renderNavLinks(true)}
-              </div>
-            </div>
+              <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${toggle ? 'rotate-45 translate-y-2' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${toggle ? 'opacity-0' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${toggle ? '-rotate-45 -translate-y-2' : ''}`}></div>
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      {toggle && (
+        <div className="fixed inset-0 top-20 z-10 bg-black/50" onClick={() => setToggle(false)} />
+      )}
+      
+      <div
+        className={`fixed top-20 left-0 h-screen w-80 bg-gradient-to-b from-black-200 to-black-300 z-20 transform transition-transform duration-300 ease-in-out shadow-lg ${
+          toggle ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-8 flex flex-col gap-8 h-full overflow-y-auto">
+          <ul className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  className={`text-base font-medium transition-colors ${
+                    active === link.title
+                      ? 'text-[#915EFF]'
+                      : 'text-white hover:text-[#915EFF]'
+                  }`}
+                  onClick={() => handleLinkClick(link.title)}
+                >
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="border-t border-white/20 pt-6">
+            <button
+              onClick={toggleResume}
+              className="w-full px-4 py-2 bg-[#915EFF] hover:bg-[#7e4cc3] text-white rounded-lg font-medium transition-colors"
+            >
+              Download Resume
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
