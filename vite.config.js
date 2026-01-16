@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/3D-portfolio/",
   build: {
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
         manualChunks: {
