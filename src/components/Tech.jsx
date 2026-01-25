@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { BallCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
-import { technologies } from "../data/portfolio";
+// import { technologies } from "../data/portfolio";
+import { useLanguage } from "../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 
 const Tech = () => {
+  const { t } = useLanguage();
+  const technologies = t.technologies;
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
@@ -32,8 +35,8 @@ const Tech = () => {
   return (
     <>
       <motion.div className="w-full text-center py-10">
-        <p className={styles.sectionSubText}>What I Use to Build</p>
-        <h2 className={styles.sectionHeadText}>Technologies</h2>
+        <p className={styles.sectionSubText}>{t.ui.tech.subText}</p>
+        <h2 className={styles.sectionHeadText}>{t.ui.tech.headText}</h2>
       </motion.div>
 
       <div className="flex flex-row flex-wrap justify-center gap-10">

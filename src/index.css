@@ -4,13 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #050816;
+  --secondary: #aaa6c3;
+  --tertiary: #151030;
+  --black-100: #100d25;
+  --black-200: #090325;
+  --white-100: #f3f3f3;
+}
+
+.light {
+  --primary: #ffffff;
+  --secondary: #454545;
+  --tertiary: #f0f0f0;
+  --black-100: #e0e0e0;
+  --black-200: #d0d0d0;
+  --white-100: #1a1a1a;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: dark light;
 }
 
 .hash-span {

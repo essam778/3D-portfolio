@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { Tilt } from 'react-tilt';
-import { services } from '../constants';
+// import { services } from '../constants'; // Deprecated
 import { SectionWrapper } from '../hoc';
+import { useLanguage } from '../context/LanguageContext';
 import { styles } from '../styles';
 import { fadeIn, textVariant } from '../utils/motion';
 
@@ -29,27 +30,23 @@ const ServiceCard = ({ index, title, icon }) => (
 );
 
 const About = () => {
+  const { t } = useLanguage();
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview</h2>
+        <p className={styles.sectionSubText}>{t.ui.about.subText}</p>
+        <h2 className={styles.sectionHeadText}>{t.ui.about.headText}</h2>
       </motion.div>
 
       <motion.p
         variants={fadeIn('', '', 0.1, 1)}
-        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px] whitespace-pre-line"
       >
-          Hi! I'm Essam Hisham, a 17-year-old developer and robotics engineer from Egypt. My journey into the world of technology began at the age of 14 when I first discovered programming, and I've been hooked ever since.
-
-        Currently in my senior year of high school (Grade 12), I've built a strong foundation in software development, robotics, and embedded systems. I love tackling complex problems and creating innovative solutions that bridge the gap between hardware and software.
-
-        My passion lies in building real-world projects that make a difference. From autonomous smart cars to AI-powered embedded systems, I'm always exploring new technologies and pushing the boundaries of what's possible.
-      
+        {t.ui.about.description}
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">
-        {services.map((service, index) => (
+        {t.services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
       </div>

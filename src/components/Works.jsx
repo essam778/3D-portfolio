@@ -2,7 +2,8 @@ import { useState, forwardRef } from "react";
 import { Tilt } from "react-tilt";
 import { motion, AnimatePresence } from "framer-motion";
 import { styles } from "../styles";
-import { projects } from "../data/portfolio";
+// import { projects } from "../data/portfolio";
+import { useLanguage } from "../context/LanguageContext";
 import { fadeIn, textVariant } from "../utils/motion";
 import { SectionWrapper } from "../hoc";
 import { github } from "../assets";
@@ -78,7 +79,7 @@ const ProjectCard = forwardRef(({
           </div>
         </div>
         <div className="mt-5 flex-1">
-          <h3 className="text-white font-bold text-[24px]">{name}</h3>
+          <h3 className="text-white-100 font-bold text-[24px]">{name}</h3>
           <p className="text-secondary mt-4 text-[15px]">{description}</p>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -115,7 +116,7 @@ const ProjectModal = ({ project, onClose }) => {
       >
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-white hover:text-[#64ffda] transition-colors text-3xl"
+          className="absolute top-6 right-6 text-white-100 hover:text-[#64ffda] transition-colors text-3xl"
         >
           &times;
         </button>
@@ -130,16 +131,16 @@ const ProjectModal = ({ project, onClose }) => {
           </div>
 
           <div className="flex flex-col gap-6">
-            <h2 className="text-white font-bold text-[32px] sm:text-[40px] text-[#64ffda]">{project.name}</h2>
+            <h2 className="text-white-100 font-bold text-[32px] sm:text-[40px] text-[#64ffda]">{project.name}</h2>
 
             <section>
-              <h3 className="text-white font-semibold text-[24px] mb-3">Overview</h3>
+              <h3 className="text-white-100 font-semibold text-[24px] mb-3">Overview</h3>
               <p className="text-secondary text-[17px] leading-[28px]">{project.details.overview}</p>
             </section>
 
             <div className="grid md:grid-cols-2 gap-8">
               <section>
-                <h3 className="text-white font-semibold text-[24px] mb-3">Technical Stack</h3>
+                <h3 className="text-white-100 font-semibold text-[24px] mb-3">Technical Stack</h3>
                 <ul className="flex flex-col gap-2">
                   {project.details.techStack.map((item, i) => (
                     <li key={i} className="text-secondary flex items-start gap-2">
@@ -150,7 +151,7 @@ const ProjectModal = ({ project, onClose }) => {
               </section>
 
               <section>
-                <h3 className="text-white font-semibold text-[24px] mb-4">Key Features</h3>
+                <h3 className="text-white-100 font-semibold text-[24px] mb-4">Key Features</h3>
                 <div className="flex flex-col gap-3">
                   {project.details.features.map((feature, i) => (
                     <div key={i} className="bg-black-200 p-3 rounded-xl border border-white/5">
@@ -189,6 +190,7 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 const Works = () => {
+  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -200,15 +202,15 @@ const Works = () => {
     { id: "web", title: "Web Development" },
   ];
 
-  const filteredProjects = projects.filter((project) =>
+  const filteredProjects = t.projects.filter((project) =>
     activeFilter === "all" ? true : project.category === activeFilter
   );
 
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Things I’ve Built </p>
-        <h2 className={styles.sectionHeadText}>Projects.</h2>
+        <p className={styles.sectionSubText}>{t.ui.works.subText}</p>
+        <h2 className={styles.sectionHeadText}>{t.ui.works.headText}</h2>
       </motion.div>
 
       <div className="w-full flex flex-col">
@@ -216,7 +218,7 @@ const Works = () => {
           variants={fadeIn("", "", 0.1, 1)}
           className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
         >
-          A collection of my work in robotics, embedded systems, and web development. Each project represents countless hours of learning, experimenting, and building real-world solutions.
+          {t.ui.works.description}
         </motion.p>
 
         {/* Filter Buttons */}
@@ -227,10 +229,10 @@ const Works = () => {
               onClick={() => setActiveFilter(category.id)}
               className={`px-4 sm:px-6 py-2 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${activeFilter === category.id
                 ? "bg-white text-primary border-white"
-                : "bg-transparent text-secondary border-secondary/50 hover:border-white hover:text-white"
+                : "bg-transparent text-secondary border-secondary/50 hover:border-white-100 hover:text-white-100"
                 }`}
             >
-              {category.title}
+              {t.ui.works.categories[category.id]}
             </button>
           ))}
         </div>

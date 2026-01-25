@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
+import { useLanguage } from "../context/LanguageContext";
 
 const ComputersCanvas = lazy(() => import("./canvas/Computers"));
 
@@ -40,6 +41,7 @@ const TypewriterText = ({ words, speed = 100, delay = 1500 }) => {
 };
 
 const Hero = () => {
+  const { t } = useLanguage();
   const [showCanvas, setShowCanvas] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
@@ -68,10 +70,13 @@ const Hero = () => {
 
         <div className="flex-1">
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className="text-[#915EFF]">Essam Hisham</span>
+            {t.ui.hero.headText} <span className="text-[#915EFF]">Essam Hisham</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I do <TypewriterText words={["IOT", "Robotics", "Arduino&ESP32", "Web Development"]} speed={100} delay={1500} />
+            {t.ui.hero.subText[0]} <br className="sm:block hidden" />
+            {t.ui.hero.subText[1]}
+            <br />
+            <TypewriterText words={t.ui.hero.typewriterWords} speed={100} delay={1500} />
           </p>
         </div>
       </div>
