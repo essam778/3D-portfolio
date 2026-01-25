@@ -30,6 +30,7 @@ import tailwind from "./tech/tailwind.png";
 import threejs from "./tech/threejs.png";
 
 // Import common assets
+import personal from "./Personal.jpeg";
 import logo from "./logo.svg";
 import github from "./github.png";
 import menu from "./menu.svg";
@@ -59,6 +60,7 @@ export {
   reactjs,
   tailwind,
   threejs,
+  personal,
   logo,
   github,
   menu,
